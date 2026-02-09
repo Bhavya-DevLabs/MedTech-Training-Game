@@ -1197,7 +1197,7 @@
 /* Drag container - holds draggable options */
 .drag-container {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: 12px;
   padding: 20px;
   background: #f5f5f5;
@@ -1205,6 +1205,25 @@
   border-radius: 8px;
   margin: 20px 0;
   min-height: 100px;
+}
+
+@media (min-width: 768px) {
+  .drag-container {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .draggable {
+    flex: 0 1 auto;
+    max-width: calc(50% - 6px);
+  }
+}
+
+@media (max-width: 767px) {
+  .draggable {
+    width: 100%;
+    max-width: 100%;
+  }
 }
 
 /* Draggable items */
@@ -1219,13 +1238,15 @@
   touch-action: none;
   user-select: none;
   transition: transform 0.3s ease, box-shadow 0.2s, opacity 0.2s;
+  word-wrap: break-word;
+  white-space: normal;
+  line-height: 1.5;
+  min-height: 44px;
 }
 
 .draggable:hover {
   background: var(--jj-navy);
   color: white;
-  transform: translateY(-2px);
-  box-shadow: var(--shadow);
 }
 
 .draggable.is-dragging {
@@ -1238,22 +1259,31 @@
 /* Drop zones - inline blanks in the question text */
 .drop-zone {
   display: inline-block;
-  min-width: 150px;
-  min-height: 40px;
+  min-width: 180px;
+  max-width: 500px;
+  min-height: 44px;
   border: 3px dashed #999;
   border-radius: 6px;
-  padding: 8px 12px;
+  padding: 10px 16px;
   margin: 0 8px;
   background: #f9f9f9;
   text-align: center;
   vertical-align: middle;
-  transition: var(--transition);
+  word-wrap: break-word;
+  white-space: normal;
+  line-height: 1.4;
+  transition: all 0.2s ease;
+}
+
+.drop-zone:hover {
+  border-color: var(--jj-navy);
+  background: #e8e8e8;
 }
 
 .drop-zone.drop-active {
-  border-color: var(--jj-red);
-  background: rgba(200, 16, 46, 0.08);
-  box-shadow: 0 0 0 3px rgba(200, 16, 46, 0.15);
+  border-color: #4CAF50;
+  background: #e8f5e9;
+  transform: scale(1.02);
 }
 
 .drop-zone.filled {
@@ -1262,6 +1292,7 @@
   border-style: solid;
   border-color: var(--jj-navy);
   font-weight: 600;
+  max-width: 600px;
   cursor: pointer;
 }
 
@@ -1269,38 +1300,34 @@
   opacity: 0.85;
 }
 
-/* Filled Blanks - Answered State - Enhanced */
+/* Filled Blanks - Clean Text Only (No Boxes) */
 .filled-blank {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--spacing-xs);
-  padding: var(--spacing-sm) var(--spacing-lg);
-  border-radius: var(--radius-lg);
+  display: inline;
   font-weight: 700;
-  margin: 0 var(--spacing-xs);
-  vertical-align: middle;
-  font-size: var(--font-size-lg);
+  margin: 0 2px;
+  padding: 0;
+  border: none;
+  background: none;
 }
 
 .filled-blank.correct-blank {
-  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
-  color: white;
-  border: 3px solid #15803d;
-  box-shadow: 0 4px 6px rgba(34, 197, 94, 0.3);
+  color: var(--success);
 }
 
 .filled-blank.incorrect-blank {
-  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-  color: white;
-  border: 3px solid #b91c1c;
-  box-shadow: 0 4px 6px rgba(239, 68, 68, 0.3);
+  color: var(--error);
 }
 
-.blank-check,
+.blank-check {
+  color: var(--success);
+  font-weight: 700;
+  margin-left: 4px;
+}
+
 .blank-cross {
-  font-weight: 900;
-  font-size: var(--font-size-xl);
-  margin-left: var(--spacing-xs);
+  color: var(--error);
+  font-weight: 700;
+  margin-left: 4px;
 }
 
 /* Correct Answers List - Enhanced */

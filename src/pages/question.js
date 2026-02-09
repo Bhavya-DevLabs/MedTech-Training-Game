@@ -641,7 +641,7 @@ export const QuestionPage = {
         inertia: false,
         modifiers: [
           interact.modifiers.restrictRect({
-            restriction: '#drag-drop-card',
+            restriction: 'body',
             endOnly: true
           })
         ],
