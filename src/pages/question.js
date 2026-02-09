@@ -453,23 +453,40 @@ export const QuestionPage = {
 
   renderDragDropOrder(isAnswered, status) {
     if (isAnswered) {
+      const userOrder = status.userAnswer;
+      const correctOrder = this.currentQuestion.correctOrder;
+
       return `
         <div class="question-card drag-drop-question">
           <div class="question-type-badge">
             <i class="fa-solid fa-arrow-down-1-9"></i> Arrange in Order
           </div>
           <h2 class="question-text">${this.currentQuestion.question}</h2>
-          <div class="order-list">
-            ${this.currentQuestion.options.map((option, index) => `
-              <div class="order-item">
-                <span class="order-number">${index + 1}</span>
-                <span class="order-text">${option}</span>
+
+          <div class="order-comparison">
+            <div class="order-column">
+              <h3>Your Answer:</h3>
+              <ol class="answer-order-list ${status.correct ? 'correct-order' : 'incorrect-order'}">
+                ${userOrder.map(index => `
+                  <li>${this.currentQuestion.options[index]}</li>
+                `).join('')}
+              </ol>
+            </div>
+
+            ${!status.correct ? `
+              <div class="order-column">
+                <h3>Correct Order:</h3>
+                <ol class="answer-order-list correct-order">
+                  ${correctOrder.map(index => `
+                    <li>${this.currentQuestion.options[index]}</li>
+                  `).join('')}
+                </ol>
               </div>
-            `).join('')}
+            ` : ''}
           </div>
+
           <div class="answer-feedback ${status.correct ? 'correct' : 'incorrect'}">
-            <i class="fa-solid ${status.correct ? 'fa-circle-check' : 'fa-circle-xmark'}"></i>
-            ${status.correct ? 'Correct! Well done.' : 'Incorrect. Review and try to remember for next time.'}
+            ${status.correct ? '\u2713 Perfect! Correct sequence.' : '\u2717 Incorrect order - See the correct sequence above'}
           </div>
           ${this.renderNavigationButtons()}
         </div>

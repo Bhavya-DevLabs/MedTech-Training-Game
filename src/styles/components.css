@@ -1075,27 +1075,33 @@
    ANSWER FEEDBACK
    ============================================================ */
 
-/* Answer Feedback - Enhanced */
+/* Answer Feedback - Reduced Size */
 .answer-feedback {
-  padding: var(--spacing-lg);
-  border-radius: var(--radius-lg);
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-radius: var(--radius);
   text-align: center;
-  font-size: var(--font-size-lg);
-  font-weight: 700;
-  margin: var(--spacing-xl) 0;
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  margin: var(--spacing-lg) 0;
   box-shadow: var(--shadow);
 }
 
 .answer-feedback.correct {
   background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
   color: var(--success);
-  border: 3px solid var(--success);
+  border: 2px solid var(--success);
 }
 
 .answer-feedback.incorrect {
   background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
   color: var(--error);
-  border: 3px solid var(--error);
+  border: 2px solid var(--error);
+}
+
+/* Emoji size adjustment inside feedback */
+.answer-feedback > div[style*="font-size"] {
+  font-size: var(--font-size-xl) !important;
+  margin-bottom: var(--spacing-xs) !important;
 }
 
 .answer-feedback i {
@@ -1742,5 +1748,62 @@
 
   .login-card {
     padding: var(--spacing-lg);
+  }
+}
+
+/* ============================================================
+   ORDER COMPARISON  (drag-drop-order answered state)
+   ============================================================ */
+
+.order-comparison {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-xl);
+  margin: var(--spacing-xl) 0;
+}
+
+.order-column h3 {
+  font-size: var(--font-size-lg);
+  color: var(--jj-navy);
+  margin-bottom: var(--spacing-md);
+  font-weight: 700;
+}
+
+/* Answer Order List - Numbered */
+.answer-order-list {
+  list-style: decimal;
+  padding-left: var(--spacing-xl);
+  margin: 0;
+  background: var(--bg);
+  border-radius: var(--radius);
+  padding: var(--spacing-lg) var(--spacing-lg) var(--spacing-lg) var(--spacing-2xl);
+}
+
+.answer-order-list li {
+  padding: var(--spacing-md);
+  margin: var(--spacing-xs) 0;
+  background: white;
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+.answer-order-list.correct-order li {
+  border-left: 4px solid var(--success);
+  background: linear-gradient(90deg, #f0fdf4 0%, white 100%);
+}
+
+.answer-order-list.incorrect-order li {
+  border-left: 4px solid var(--error);
+  background: linear-gradient(90deg, #fef2f2 0%, white 100%);
+}
+
+@media (max-width: 767px) {
+  .order-comparison {
+    grid-template-columns: 1fr;
+  }
+
+  .answer-order-list {
+    padding-left: var(--spacing-lg);
   }
 }
