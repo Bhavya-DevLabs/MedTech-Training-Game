@@ -286,27 +286,30 @@ export const QuestionPage = {
             <i class="fa-solid fa-list-check"></i> Select All That Apply
           </div>
           <h2 class="question-text">${this.currentQuestion.question}</h2>
+          <p class="question-hint">Select all that apply</p>
           <div class="options-list">
             ${this.currentQuestion.options.map((option, index) => {
               const isCorrect = this.currentQuestion.correctAnswers.includes(index);
               const isUserAnswer = userAnswers.includes(index);
 
-              let itemClass = 'option-item checkbox disabled';
+              let itemClass = 'option-item disabled';
               let indicator = '';
 
-              if (isCorrect) {
+              // Determine which single indicator to show
+              if (isUserAnswer && isCorrect) {
+                // User selected it AND it's correct - show green check
                 itemClass += ' correct';
-                if (isUserAnswer) {
-                  indicator = '<span class="answer-indicator correct-indicator">\u2713</span>';
-                } else {
-                  indicator = '<span class="answer-indicator missed-indicator">\u25CB</span>';
-                }
-              }
-
-              if (isUserAnswer && !isCorrect) {
+                indicator = '<span class="answer-indicator correct-indicator">\u2713</span>';
+              } else if (isUserAnswer && !isCorrect) {
+                // User selected it but it's WRONG - show red X
                 itemClass += ' incorrect';
                 indicator = '<span class="answer-indicator incorrect-indicator">\u2717</span>';
+              } else if (!isUserAnswer && isCorrect) {
+                // User MISSED this correct answer - show gray circle
+                itemClass += ' correct';
+                indicator = '<span class="answer-indicator missed-indicator">\u25CB Missed</span>';
               }
+              // If not selected and not correct, show nothing
 
               return `
                 <div class="${itemClass}">
@@ -318,8 +321,10 @@ export const QuestionPage = {
             }).join('')}
           </div>
           <div class="answer-feedback ${status.correct ? 'correct' : 'incorrect'}">
-            <i class="fa-solid ${status.correct ? 'fa-circle-check' : 'fa-circle-xmark'}"></i>
-            ${status.correct ? 'Correct! Well done.' : 'Incorrect - Review the correct options marked above'}
+            <div style="font-size: var(--font-size-2xl); margin-bottom: var(--spacing-sm);">
+              ${status.correct ? '\uD83C\uDF89' : '\uD83D\uDCCB'}
+            </div>
+            ${status.correct ? '\u2713 Perfect! All correct answers selected.' : '\u2717 Not quite right - Review the options above'}
           </div>
           ${this.renderNavigationButtons()}
         </div>
