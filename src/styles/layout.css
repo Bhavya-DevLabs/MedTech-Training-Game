@@ -1,0 +1,229 @@
+/* ============================================================
+   APP SHELL — Full Height, No Scrollbar
+   ============================================================ */
+
+.app-shell {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.content {
+  height: 100vh;
+  overflow-y: auto;
+  background: var(--bg);
+}
+
+/* ============================================================
+   THREE-COLUMN GAME LAYOUT — Large Desktop (1400px+)
+   ============================================================ */
+
+.game-layout {
+  display: grid;
+  grid-template-columns: 300px 1fr 320px;
+  gap: var(--spacing-xl);
+  height: calc(100vh - 130px);
+  max-height: calc(100vh - 130px);
+  overflow: hidden;
+  padding: var(--spacing-xl);
+}
+
+.question-sidebar {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: var(--spacing-lg);
+  overflow-y: auto;
+  overflow-x: hidden;
+  box-shadow: var(--shadow);
+}
+
+.sidebar-title {
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  color: var(--jj-navy);
+  margin: 0 0 var(--spacing-md);
+}
+
+.question-tiles {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-sm);
+}
+
+.game-content {
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: var(--spacing-lg);
+}
+
+.score-sidebar {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: var(--spacing-lg);
+  overflow-y: auto;
+  overflow-x: hidden;
+  box-shadow: var(--shadow);
+}
+
+/* ============================================================
+   RESPONSIVE BREAKPOINTS
+   ============================================================ */
+
+/* Medium Desktop (1200px – 1399px) */
+@media (max-width: 1399px) {
+  .game-layout {
+    grid-template-columns: 280px 1fr 280px;
+    gap: var(--spacing-lg);
+    padding: var(--spacing-lg);
+  }
+
+  .question-tiles {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-xs);
+  }
+
+  .tile-topic {
+    font-size: 11px;
+  }
+}
+
+/* Small Desktop / Laptop (992px – 1199px) */
+@media (max-width: 1199px) {
+  .game-layout {
+    grid-template-columns: 240px 1fr 240px;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md);
+  }
+
+  .question-sidebar h3,
+  .score-panel h3 {
+    font-size: var(--font-size-base);
+  }
+
+  .score-stats {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-sm);
+  }
+}
+
+/* Tablet (768px – 991px) */
+@media (max-width: 991px) {
+  html, body {
+    overflow: auto;
+    height: auto;
+  }
+
+  .app-shell {
+    height: auto;
+    min-height: 100vh;
+    overflow: auto;
+  }
+
+  .content {
+    height: auto;
+    overflow-y: auto;
+  }
+
+  .game-layout {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto;
+    gap: var(--spacing-md);
+    height: auto;
+    max-height: none;
+    min-height: calc(100vh - 160px);
+  }
+
+  .question-sidebar {
+    order: 1;
+    max-height: 200px;
+    overflow-y: auto;
+  }
+
+  .game-content {
+    order: 2;
+    min-height: 400px;
+  }
+
+  .score-sidebar {
+    order: 3;
+    max-height: none;
+  }
+
+  .question-tiles {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .score-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile Landscape (576px – 767px) */
+@media (max-width: 767px) {
+  .game-layout {
+    padding: var(--spacing-sm);
+    gap: var(--spacing-sm);
+  }
+
+  .question-tiles {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-xs);
+  }
+
+  .question-tile {
+    min-height: 70px;
+    padding: var(--spacing-xs);
+  }
+
+  .tile-number {
+    font-size: var(--font-size-lg);
+  }
+
+  .tile-topic {
+    font-size: 10px;
+  }
+
+  .score-stats {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Mobile Portrait (< 576px) */
+@media (max-width: 575px) {
+  .game-layout {
+    display: flex;
+    flex-direction: column;
+    padding: var(--spacing-xs);
+  }
+
+  .question-sidebar,
+  .score-sidebar {
+    max-height: none;
+    border-radius: var(--radius-sm);
+  }
+
+  .question-tiles {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .question-tile {
+    min-height: 60px;
+    padding: 4px;
+  }
+
+  .tile-number {
+    font-size: var(--font-size-base);
+  }
+
+  .tile-topic {
+    font-size: 9px;
+    line-height: 1.1;
+  }
+
+  .tile-status {
+    font-size: var(--font-size-sm);
+  }
+
+  .score-stats {
+    grid-template-columns: 1fr;
+  }
+}
